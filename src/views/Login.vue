@@ -41,11 +41,11 @@ export default class extends Vue {
   // 表单验证规则
   private loginFromRules = {
     username: [
-      {require: true, message: "请输入用户名称", trigger: "blur"},
+      {required: true, message: "请输入用户名称", trigger: "blur"},
       {min: 3, max: 10, message: "长度在 3 到 10个字符", trigger: "blur"}
     ],
     password: [
-      {require: true, message: "请输入等领域密码", trigger: "blur"},
+      {required: true, message: "请输入等领域密码", trigger: "blur"},
       {min: 6, max: 32, message: "长度在 6 到 32个字符", trigger: "blur"}
     ]
   };
