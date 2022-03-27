@@ -61,10 +61,15 @@ export default class extends Vue {
     this.loginFormRef.validate(async (isValid: boolean)=> {
       if (!isValid) return;
       const {data} = await api.post('login', this.loginForm);
+      console.log(data);
       if(data.meta.status != 200) {
         Message.error(data.meta.msg);
       } else {
         Message.success(data.meta.msg);
+        // 先将token存放到sessionStorage中
+        window.sessionStorage.setItem("token", data.data.token)
+        // 路由跳转到/home
+        await this.$router.push("/home");
       }
     })
   }
