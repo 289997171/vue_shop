@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full">
     <!--路由占位符-->
     <router-view></router-view>
   </div>
