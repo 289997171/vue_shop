@@ -17,7 +17,7 @@
           <el-input prefix-icon="el-icon-search" placeholder="请输入用户密码" v-model="loginForm.password" clearable show-password></el-input>
         </el-form-item>
         <el-form-item class="flex justify-end">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
           <el-button type="reset" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -28,11 +28,14 @@
 
 <script lang="ts">
 import {Vue, Component, Ref} from "vue-property-decorator";
+import {ElForm} from "element-ui/types/form";
 
 @Component({name: "Login"})
 export default class extends Vue {
+
   @Ref("loginFormRef")
-  private readonly loginFormRef:any;
+  private readonly loginFormRef!:ElForm;
+
   private loginForm = {username: "", password: ""};
 
   // 表单验证规则
@@ -48,7 +51,16 @@ export default class extends Vue {
   };
 
   private resetLoginForm() {
+    console.log(this.loginFormRef)
     this.loginFormRef.resetFields();
+  }
+
+  private login() {
+    this.loginFormRef.validate((isValid: boolean, invalidFields: object)=> {
+      if (!isValid) return;
+      console.log(isValid)
+      console.log(invalidFields)
+    })
   }
 }
 </script>
