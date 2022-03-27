@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-gray-50">
     登录组件
   </div>
 </template>
