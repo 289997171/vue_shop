@@ -7,7 +7,6 @@
         <img class="avatar_box" src="@/assets/logo.png" alt="">
       </div>
 
-      {{ loginForm }}
       <!--表单-->
       <el-form label-width="100px" class="px-4" :model="loginForm" :rules="loginFromRules" ref="loginFormRef">
         <el-form-item label="用户名称" prop="username">
@@ -30,6 +29,7 @@
 import {Vue, Component, Ref} from "vue-property-decorator";
 import {ElForm} from "element-ui/types/form";
 import api from "@/api/API";
+import {Message} from "element-ui";
 
 
 @Component({name: "Login"})
@@ -61,7 +61,11 @@ export default class extends Vue {
     this.loginFormRef.validate(async (isValid: boolean)=> {
       if (!isValid) return;
       const {data} = await api.post('login', this.loginForm);
-      console.log(data);
+      if(data.meta.status != 200) {
+        Message.error(data.meta.msg);
+      } else {
+        Message.success(data.meta.msg);
+      }
     })
   }
 }
