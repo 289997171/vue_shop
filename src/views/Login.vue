@@ -29,6 +29,8 @@
 <script lang="ts">
 import {Vue, Component, Ref} from "vue-property-decorator";
 import {ElForm} from "element-ui/types/form";
+import api from "@/api/API";
+
 
 @Component({name: "Login"})
 export default class extends Vue {
@@ -56,10 +58,10 @@ export default class extends Vue {
   }
 
   private login() {
-    this.loginFormRef.validate((isValid: boolean, invalidFields: object)=> {
+    this.loginFormRef.validate(async (isValid: boolean)=> {
       if (!isValid) return;
-      console.log(isValid)
-      console.log(invalidFields)
+      const {data} = await api.post('login', this.loginForm);
+      console.log(data);
     })
   }
 }
@@ -69,7 +71,7 @@ export default class extends Vue {
 .login_box {
   width: 500px;
   height: 360px;
-@apply bg-white my-auto rounded;
+  @apply bg-white my-auto rounded;
 
   .avatar_box {
     width: 120px;
